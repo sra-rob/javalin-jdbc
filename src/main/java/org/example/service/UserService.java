@@ -1,14 +1,14 @@
-package org.example.dao;
+package org.example.service;
 
 import org.example.model.User;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UserDao {
+public interface UserService {
     public User save(User user);
-    public User update(int id, User user);
     public void delete(int id);
+    public User update(int id, User user);
     public List<User> get();
-    public Optional<User> getById(int id);
+    public User getById(int id);
 }

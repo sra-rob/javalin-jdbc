@@ -5,12 +5,11 @@ import org.example.exception.UserAlreadyExistsException;
 import org.example.exception.UserNotFoundException;
 import org.example.model.User;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class InMemoryUserDao implements UserDao {
     private int userCount = 1;
-    private Map<Integer, User> users = new HashMap<>();
+    private final Map<Integer, User> users = new HashMap<>();
     @Override
     public User save(User user) {
         int userId = user.getId();
@@ -41,11 +40,15 @@ public class InMemoryUserDao implements UserDao {
     }
 
     @Override
-    public User get(int id) {
+    public List<User> get() {
+        return new ArrayList<>(users.values());
+    }
+
+    @Override
+    public Optional<User> getById(int id) {
         if(users.containsKey(id)) {
-            return users.get(id);
-        } else {
-            throw new UserNotFoundException(id);
+            return Optional.of(users.get(id));
         }
+        return Optional.empty();
     }
 }
